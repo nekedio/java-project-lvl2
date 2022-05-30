@@ -1,21 +1,18 @@
 package hexlet.code;
 
-public class Pair {
-    private String key;
-    private Object value;
-    private Object oldValue;
+public final class Pair {
+    private final Object value;
+    private final Object oldValue;
+    private final String status;
+
+    public Pair(Object valuePair, Object oldValuePair, String statusPair) {
+        this.value = valuePair;
+        this.oldValue = oldValuePair;
+        this.status = statusPair;
+    }
 
     public String getStatus() {
         return status;
-    }
-
-    private String status;
-
-    public Pair(String key, Object value, Object oldValue, String status) {
-        this.key = key;
-        this.value = value;
-        this.oldValue = oldValue;
-        this.status = status;
     }
 
     public String toStringValue() {

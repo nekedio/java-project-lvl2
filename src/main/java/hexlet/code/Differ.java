@@ -23,13 +23,13 @@ public class Differ {
 
         for (String key: keysAll) {
             if (!keys2.contains(key)) {
-                result.put(key, new Pair(key, data1.get(key), null,"deleted"));
+                result.put(key, new Pair(data1.get(key), null, "deleted"));
             } else if (!keys1.contains(key)) {
-                result.put(key, new Pair(key, data2.get(key), null,"added"));
+                result.put(key, new Pair(data2.get(key), null, "added"));
             } else if (!data2.get(key).equals(data1.get(key))) {
-                result.put(key, new Pair(key, data2.get(key), data1.get(key), "changed"));
+                result.put(key, new Pair(data2.get(key), data1.get(key), "changed"));
             } else if (data2.get(key).equals(data1.get(key))) {
-                result.put(key, new Pair(key, data2.get(key), null,"unchanged"));
+                result.put(key, new Pair(data2.get(key), null, "unchanged"));
             }
         }
 
@@ -75,11 +75,11 @@ public class Differ {
                     result.append(": ");
                     result.append(value);
                 }
-                default -> throw new RuntimeException("Error! Status " + status + "not detected.");
+                default -> throw new RuntimeException("Error! Status \"" + status + "\" not detected.");
             }
             result.append("\n");
         }
-        result.append("}");
+        result.append("}\n");
 
         return result.toString();
     }

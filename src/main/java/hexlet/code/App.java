@@ -32,11 +32,9 @@ class App implements Callable<Integer> {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        Map<String, Object> map1 = mapper.readValue(fileContents1,
-                new TypeReference<Map<String, Object>>() { } );
+        Map<String, Object> map1 = mapper.readValue(fileContents1, new TypeReference<>() { });
 
-        Map<String, Object> map2 = mapper.readValue(fileContents2,
-                new TypeReference<Map<String, Object>>() { } );
+        Map<String, Object> map2 = mapper.readValue(fileContents2, new TypeReference<>() { });
 
         String result = Differ.generate(map1, map2);
         System.out.println(result);
