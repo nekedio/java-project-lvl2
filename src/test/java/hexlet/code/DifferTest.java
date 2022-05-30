@@ -1,32 +1,12 @@
 package hexlet.code;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+import static org.junit.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class DifferTest {
     @Test
-    void testDiffGenerate() {
-
-        Map<String, Object> map1 = new HashMap<>(
-                Map.of("host", "hexlet.io",
-                        "timeout", Integer.valueOf("50"),
-                        "proxy", "123.234.53.22",
-                        "follow", false
-                )
-        );
-
-        Map<String, Object> map2 = new HashMap<>(
-                Map.of(
-                        "timeout", Integer.valueOf("20"),
-                        "verbose", true,
-                        "host", "hexlet.io"
-                )
-        );
-
+    void testDiffGenerateJson() throws Exception {
         String expected = """
                 {
                   - follow: false
@@ -38,8 +18,47 @@ public class DifferTest {
                 }
                 """;
 
-        String actual = Differ.generate(map1, map2);
+        String actual = Differ.generate(
+                "/home/nekedio/he/app/src/test/resources/file1.json",
+                "/home/nekedio/he/app/src/test/resources/file2.json"
+        );
 
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void testDiffGenerateYaml() throws Exception {
+        String expected = """
+                {
+                  - follow: false
+                    host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
+                  + timeout: 20
+                  + verbose: true
+                }
+                """;
+
+        String actual = Differ.generate(
+                "/home/nekedio/he/app/src/test/resources/file1.yml",
+                "/home/nekedio/he/app/src/test/resources/file2.yml"
+        );
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void testDiffGenerateException() throws Exception {
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            Differ.generate(
+                "/home/nekedio/he/app/src/test/resources/file1.yml",
+                "/home/nekedio/he/app/src/test/resources/errorExtension.jso"
+            );
+        });
+
+        String expectedMessage = "\"jso\" invalid file extension";
+        String actualMessage = exception.getMessage();
+
+        assertThat(actualMessage).isEqualTo(expectedMessage);
     }
 }

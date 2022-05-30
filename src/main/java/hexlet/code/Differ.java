@@ -6,12 +6,17 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Differ {
-    public static String generate(Map<String, Object> data1, Map<String, Object> data2) {
-        Map<String, Pair> result = genDiff(data1, data2);
+    public static String generate(String filepath1, String filepath2) throws Exception {
+        Map<String, Pair> result = genDiff(
+                Parser.getContents(filepath1, filepath1.substring(filepath1.indexOf('.') + 1)),
+                Parser.getContents(filepath2, filepath2.substring(filepath2.indexOf('.') + 1))
+        );
+
         return Differ.toString(result);
     }
 
     public static Map<String, Pair> genDiff(Map<String, Object> data1, Map<String, Object> data2) {
+
         Set<String> keys1 = new TreeSet<>(data1.keySet());
         Set<String> keys2 = new TreeSet<>(data2.keySet());
 
