@@ -7,7 +7,6 @@ install-dist:
 	./gradlew clean install
 
 lint:
-	clear
 	./gradlew checkstyleMain
 	./gradlew checkstyleTest
 
