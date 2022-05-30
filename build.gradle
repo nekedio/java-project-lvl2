@@ -61,3 +61,7 @@ dependencies {
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'
 
 }
+
+testlogger {
+    showStandardStreams true
+}
