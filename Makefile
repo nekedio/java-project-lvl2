@@ -18,8 +18,8 @@ comparison-example:
 
 report:
 	./gradlew jacocoTestReport
-	@echo "\n\nOpen the following file in any browser:"
-	@echo "\033[34mfile:///home/nekedio/he/app/build/jacocoHtml/index.html\033[0m"
-	@echo "---------------------------------------------------------------------------------------------------"
-	@w3m -dump file:///home/nekedio/he/app/build/jacocoHtml/index.html
-	@echo "---------------------------------------------------------------------------------------------------"
+#	@echo "\n\nOpen the following file in any browser:"
+#	@echo "\033[34mfile:///home/nekedio/he/app/build/jacocoHtml/index.html\033[0m"
+#	@echo "---------------------------------------------------------------------------------------------------"
+#	@w3m -dump file:///home/nekedio/he/app/build/jacocoHtml/index.html
+#	@echo "---------------------------------------------------------------------------------------------------"
