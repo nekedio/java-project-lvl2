@@ -19,8 +19,8 @@ public class DifferTest {
                 """;
 
         String actual = Differ.generate(
-                "/home/nekedio/he/app/src/test/resources/file1.json",
-                "/home/nekedio/he/app/src/test/resources/file2.json"
+                "src/test/resources/file1.json",
+                "src/test/resources/file2.json"
         );
 
         assertThat(actual).isEqualTo(expected);
@@ -40,21 +40,20 @@ public class DifferTest {
                 """;
 
         String actual = Differ.generate(
-                "/home/nekedio/he/app/src/test/resources/file1.yml",
-                "/home/nekedio/he/app/src/test/resources/file2.yml"
+                "src/test/resources/file1.yml",
+                "src/test/resources/file2.yml"
         );
 
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    void testDiffGenerateException() throws Exception {
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            Differ.generate(
-                "/home/nekedio/he/app/src/test/resources/file1.yml",
-                "/home/nekedio/he/app/src/test/resources/errorExtension.jso"
-            );
-        });
+    void testDiffGenerateException() {
+        Exception exception;
+        exception = assertThrows(RuntimeException.class, () -> Differ.generate(
+            "src/test/resources/file1.yml",
+            "src/test/resources/errorExtension.jso"
+        ));
 
         String expectedMessage = "\"jso\" invalid file extension";
         String actualMessage = exception.getMessage();
