@@ -27,18 +27,32 @@ public class Differ {
         Map<String, Pair> result = new LinkedHashMap<>();
 
         for (String key: keysAll) {
+            Object value1 = data1.get(key);
+            Object value2 = data2.get(key);
             if (!keys2.contains(key)) {
                 result.put(key, new Pair(data1.get(key), null, "deleted"));
             } else if (!keys1.contains(key)) {
                 result.put(key, new Pair(data2.get(key), null, "added"));
-            } else if (!data2.get(key).equals(data1.get(key))) {
+            } else if (!comparison(value1, value2)) {
                 result.put(key, new Pair(data2.get(key), data1.get(key), "changed"));
-            } else if (data2.get(key).equals(data1.get(key))) {
+            } else {
                 result.put(key, new Pair(data2.get(key), null, "unchanged"));
             }
         }
 
         return result;
+    }
+
+    public static boolean comparison(Object value1, Object value2) {
+        if ((value1 == null) && (value2 == null)) {
+            return true;
+        }
+
+        if ((value1 == null) || (value2 == null)) {
+            return false;
+        }
+
+        return value1.equals(value2);
     }
 
     public static String toString(Map<String, Pair> map) {

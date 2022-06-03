@@ -15,6 +15,8 @@ test:
 
 comparison-example:
 	./build/install/app/bin/app src/test/resources/file1.json src/test/resources/file2.json
+	@echo "--------------------------------------------------------------"
+	./build/install/app/bin/app src/test/resources/fileRec1.json src/test/resources/fileRec2.json
 
 report:
 	./gradlew jacocoTestReport
