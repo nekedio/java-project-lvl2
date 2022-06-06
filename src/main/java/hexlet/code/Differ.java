@@ -1,5 +1,8 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -19,6 +22,9 @@ public class Differ {
                 break;
             case ("plain"):
                 result = Differ.toStringPlainFormat(map);
+                break;
+            case ("json"):
+                result = Differ.toStringJsonFormat(map);
                 break;
             default:
                 throw new RuntimeException("The \"" + format + "\" format is incorrect");
@@ -41,6 +47,7 @@ public class Differ {
         for (String key: keysAll) {
             Object value1 = data1.get(key);
             Object value2 = data2.get(key);
+
             if (!keys2.contains(key)) {
                 result.put(key, new Pair(data1.get(key), null, "deleted"));
             } else if (!keys1.contains(key)) {
@@ -158,5 +165,11 @@ public class Differ {
 //        result.append("\n");
 
         return result.toString();
+    }
+
+    public static String toStringJsonFormat(Map<String, Pair> map) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String result = objectMapper.writeValueAsString(map);
+        return result;
     }
 }

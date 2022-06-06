@@ -116,6 +116,79 @@ public class DifferTest {
     }
 
     @Test
+    void testDiffGenerateRecursionStructJsonFormat() throws Exception {
+
+        String expected = "{\"follow\":{\"status\":\"deleted\"},\"host\":{\"status\":\"unchanged\"},\"proxy\":"
+                + "{\"status\":\"deleted\"},\"timeout\":{\"status\":\"changed\"},\"verbose\":{\"status\":\"added\"}}";
+
+        String actual = Differ.generate(
+                "src/test/resources/file1.json",
+                "src/test/resources/file2.json",
+                "json"
+        );
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+//    @Test
+//    void testDiffGenerateRecursionTreeStructPlainFormat() throws Exception {
+//        String expected = """
+//                {
+//                    common: {
+//                      + follow: false
+//                        setting1: Value 1
+//                      - setting2: 200
+//                      - setting3: true
+//                      + setting3: null
+//                      + setting4: blah blah
+//                      + setting5: {
+//                            key5: value5
+//                        }
+//                        setting6: {
+//                            doge: {
+//                              - wow:\s
+//                              + wow: so much
+//                            }
+//                            key: value
+//                          + ops: vops
+//                        }
+//                    }
+//                    group1: {
+//                      - baz: bas
+//                      + baz: bars
+//                        foo: bar
+//                      - nest: {
+//                            key: value
+//                        }
+//                      + nest: str
+//                    }
+//                  - group2: {
+//                        abc: 12345
+//                        deep: {
+//                            id: 45
+//                        }
+//                    }
+//                  + group3: {
+//                        fee: 100500
+//                        deep: {
+//                            id: {
+//                                number: 45
+//                            }
+//                        }
+//                    }
+//                }
+//                """;
+//
+//        String actual = Differ.generate(
+//                "src/test/resources/tree1.json",
+//                "src/test/resources/tree2.json",
+//                "plain"
+//        );
+//
+//        assertThat(actual).isEqualTo(expected);
+//    }
+
+    @Test
     void testDiffGenerateException() {
         Exception exception;
         exception = assertThrows(RuntimeException.class, () -> Differ.generate(
