@@ -46,6 +46,6 @@ public class Plain {
             }
         }
 
-        return result.toString();
+        return result.toString().trim();
     }
 }
