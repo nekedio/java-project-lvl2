@@ -51,7 +51,7 @@ public class Stylish {
             }
             result.append("\n");
         }
-        result.append("}\n");
+        result.append("}");
 
         return result.toString();
     }

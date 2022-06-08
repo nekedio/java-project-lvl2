@@ -32,8 +32,7 @@ public class DifferTest {
                   + setting2: 300
                   - setting3: true
                   + setting3: none
-                }
-                """;
+                }""";
 
         String actual = Differ.generate(
                 "src/test/resources/file1.yml",
@@ -71,8 +70,7 @@ public class DifferTest {
                   + setting2: 300
                   - setting3: true
                   + setting3: none
-                }
-                """;
+                }""";
 
         String actual = Differ.generate(
                 "src/test/resources/file1.json",
