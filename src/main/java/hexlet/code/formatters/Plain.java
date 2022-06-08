@@ -17,7 +17,6 @@ public class Plain {
             String keyFormat = "'" + key + "'";
             String value = map.get(key).toStringValuePlainFormat();
             String oldValue = map.get(key).toStringOldValuePlainFormat();
-            System.out.println();
             switch (status) {
                 case ("deleted") -> {
                     result.append("Property ");
