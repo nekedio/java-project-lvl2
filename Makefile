@@ -1,7 +1,7 @@
 run: install-dist comparison-example
 
 run-dist:
-	./build/install/app/bin/app -h
+	./build/install/app/bin/app
 
 install-dist:
 	./gradlew clean install
@@ -28,3 +28,6 @@ report:
 
 build:
 	./gradlew clean build
+
+oooo:
+	echo

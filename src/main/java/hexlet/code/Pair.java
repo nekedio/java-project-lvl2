@@ -9,7 +9,6 @@ public final class Pair {
         this.value = valuePair;
         this.oldValue = oldValuePair;
         this.status = statusPair;
-
     }
 
     public String getStatus() {
@@ -21,12 +20,21 @@ public final class Pair {
     }
 
     public String toStringValuePlainFormat() {
+        return Pair.getValuePlainFormat(value);
+    }
 
+    public String toStringOldValue() {
+        return String.valueOf(oldValue);
+    }
+
+    public String toStringOldValuePlainFormat() {
+        return Pair.getValuePlainFormat(oldValue);
+    }
+
+    public static String getValuePlainFormat(Object value) {
         if (value == null) {
             return null;
         }
-
-//        System.out.println(value.toString() + "      \"" + value.getClass().toString() + "\"");
 
         if ("class java.util.ArrayList".equals((value.getClass().toString()))) {
             return "[complex value]";
@@ -44,36 +52,6 @@ public final class Pair {
             return String.valueOf(value);
         }
 
-        return "'" + String.valueOf(value) + "'";
-    }
-
-    public String toStringOldValue() {
-        return String.valueOf(oldValue);
-    }
-
-    public String toStringOldValuePlainFormat() {
-//        return String.valueOf(oldValue);
-        if (oldValue == null) {
-            return null;
-        }
-
-        if ("class java.util.ArrayList".equals((oldValue.getClass().toString()))) {
-            return "[complex value]";
-        }
-
-        if ("class java.util.LinkedHashMap".equals((oldValue.getClass().toString()))) {
-            return "[complex value]";
-        }
-
-        if ("class java.lang.Boolean".equals((oldValue.getClass().toString()))) {
-//            return "!!!";
-            return String.valueOf(oldValue);
-        }
-
-        if ("class java.lang.Integer".equals((oldValue.getClass().toString()))) {
-            return String.valueOf(oldValue);
-        }
-
-        return "'" + String.valueOf(oldValue) + "'";
+        return "'" + value + "'";
     }
 }
