@@ -19,6 +19,11 @@ public class Differ {
         return Formatter.getString(map, format);
     }
 
+    public static String generate(String filepath1, String filepath2) throws Exception {
+        return Differ.generate(filepath1, filepath2, "stylish");
+    }
+
+
     public static Map<String, Pair> genDiff(Map<String, Object> data1, Map<String, Object> data2) {
 
         Set<String> keys1 = new TreeSet<>(data1.keySet());

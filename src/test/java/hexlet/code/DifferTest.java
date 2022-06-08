@@ -76,8 +76,7 @@ public class DifferTest {
 
         String actual = Differ.generate(
                 "src/test/resources/file1.json",
-                "src/test/resources/file2.json",
-                "stylish"
+                "src/test/resources/file2.json"
         );
 
         assertThat(actual).isEqualTo(expected);
