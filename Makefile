@@ -28,6 +28,3 @@ report:
 
 build:
 	./gradlew clean build
-
-oooo:
-	echo
