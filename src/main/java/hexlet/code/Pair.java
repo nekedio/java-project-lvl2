@@ -1,5 +1,7 @@
 package hexlet.code;
 
+import hexlet.code.formatters.Plain;
+
 public final class Pair {
     private final Object value;
     private final Object oldValue;
@@ -20,7 +22,7 @@ public final class Pair {
     }
 
     public String toStringValuePlainFormat() {
-        return Pair.getValuePlainFormat(value);
+        return Plain.getValuePlainFormat(value);
     }
 
     public String toStringOldValue() {
@@ -28,30 +30,7 @@ public final class Pair {
     }
 
     public String toStringOldValuePlainFormat() {
-        return Pair.getValuePlainFormat(oldValue);
+        return Plain.getValuePlainFormat(oldValue);
     }
 
-    public static String getValuePlainFormat(Object value) {
-        if (value == null) {
-            return null;
-        }
-
-        if ("class java.util.ArrayList".equals((value.getClass().toString()))) {
-            return "[complex value]";
-        }
-
-        if ("class java.util.LinkedHashMap".equals((value.getClass().toString()))) {
-            return "[complex value]";
-        }
-
-        if ("class java.lang.Boolean".equals((value.getClass().toString()))) {
-            return String.valueOf(value);
-        }
-
-        if ("class java.lang.Integer".equals((value.getClass().toString()))) {
-            return String.valueOf(value);
-        }
-
-        return "'" + value + "'";
-    }
 }

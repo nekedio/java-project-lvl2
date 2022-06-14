@@ -47,4 +47,28 @@ public class Plain {
 
         return result.toString().trim();
     }
+
+    public static String getValuePlainFormat(Object value) {
+        if (value == null) {
+            return null;
+        }
+
+        if ("class java.util.ArrayList".equals((value.getClass().toString()))) {
+            return "[complex value]";
+        }
+
+        if ("class java.util.LinkedHashMap".equals((value.getClass().toString()))) {
+            return "[complex value]";
+        }
+
+        if ("class java.lang.Boolean".equals((value.getClass().toString()))) {
+            return String.valueOf(value);
+        }
+
+        if ("class java.lang.Integer".equals((value.getClass().toString()))) {
+            return String.valueOf(value);
+        }
+
+        return "'" + value + "'";
+    }
 }

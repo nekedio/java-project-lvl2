@@ -26,7 +26,7 @@ class App implements Callable<Integer> {
 
         String result = Differ.generate(filepath1, filepath2, format);
 
-        System.out.println(result);
+        System.out.print(result);
         return 0;
     }
 
