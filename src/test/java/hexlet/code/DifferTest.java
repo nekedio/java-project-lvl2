@@ -47,6 +47,19 @@ public class DifferTest {
     }
 
     @Test
+    void testDiffGenerateToStylishFormat() throws Exception {
+        String expected = Files.readString(new File("src/test/resources/result.stylish").toPath());
+
+        String actual = Differ.generate(
+                "src/test/resources/file1.json",
+                "src/test/resources/file2.json",
+                "stylish"
+        );
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
     void testDiffGenerateToJsonFormat() throws Exception {
         String expected = Files.readString(new File("src/test/resources/result.json").toPath());
 

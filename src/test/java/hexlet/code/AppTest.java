@@ -41,8 +41,7 @@ public class AppTest {
     public void testGenDiffStylishFormat() throws IOException {
         String[] args = {"-f=stylish", "src/test/resources/file1.json", "src/test/resources/file2.json"};
         int exitCode = new CommandLine(new App()).execute(args);
-
-        String expected = Files.readString(new File("src/test/resources/result.stylish").toPath());
+        String expected = Files.readString(new File("src/test/resources/result.stylish").toPath()) + "\n";
 
         assertThat(exitCode).isEqualTo(0);
         assertThat(output.toString()).isEqualTo(expected);
@@ -52,8 +51,7 @@ public class AppTest {
     public void testGenDiffPlainFormat() throws IOException {
         String[] args = {"-f=plain", "src/test/resources/file1.json", "src/test/resources/file2.json"};
         int exitCode = new CommandLine(new App()).execute(args);
-
-        String expected = Files.readString(new File("src/test/resources/result.plain").toPath());
+        String expected = Files.readString(new File("src/test/resources/result.plain").toPath()) + "\n";
 
         assertThat(exitCode).isEqualTo(0);
         assertThat(output.toString()).isEqualTo(expected);
@@ -63,8 +61,7 @@ public class AppTest {
     public void testGenDiffDefaultFormat() throws IOException {
         String[] args = {"src/test/resources/file1.json", "src/test/resources/file2.json"};
         int exitCode = new CommandLine(new App()).execute(args);
-
-        String expected = Files.readString(new File("src/test/resources/result.stylish").toPath());
+        String expected = Files.readString(new File("src/test/resources/result.stylish").toPath()) + "\n";
 
         assertThat(exitCode).isEqualTo(0);
         assertThat(output.toString()).isEqualTo(expected);
