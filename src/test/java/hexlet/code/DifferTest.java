@@ -75,7 +75,7 @@ public class DifferTest {
     @Test
     void testDiffGenerateFormatException() {
         Exception exception;
-        exception = assertThrows(RuntimeException.class, () -> Differ.generate(
+        exception = assertThrows(Exception.class, () -> Differ.generate(
             "src/test/resources/file1.yml",
                 "src/test/resources/file2.yml",
                 "er"
@@ -90,13 +90,13 @@ public class DifferTest {
     @Test
     void testDiffGenerateParsingException() {
         Exception exception;
-        exception = assertThrows(RuntimeException.class, () -> Differ.generate(
+        exception = assertThrows(Exception.class, () -> Differ.generate(
                 "src/test/resources/file1.yml",
                 "src/test/resources/errorExtension.jso",
                 "stylish"
         ));
 
-        String expectedMessage = "\"jso\" invalid file extension";
+        String expectedMessage = "Unknown format: \"jso\"";
         String actualMessage = exception.getMessage();
 
         assertThat(actualMessage).isEqualTo(expectedMessage);

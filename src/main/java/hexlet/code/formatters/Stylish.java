@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Stylish {
-    public static String toString(Map<String, Pair> map) {
+    public static String toString(Map<String, Pair> map) throws Exception {
         Set<String> keys = new TreeSet<>(map.keySet());
 
         StringBuilder result = new StringBuilder();
@@ -47,7 +47,7 @@ public class Stylish {
                     result.append(": ");
                     result.append(value);
                 }
-                default -> throw new RuntimeException("Error! Status \"" + status + "\" not detected.");
+                default -> throw new Exception("Error! Status \"" + status + "\" not detected.");
             }
             result.append("\n");
         }

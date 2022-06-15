@@ -1,13 +1,14 @@
 package hexlet.code.formatters;
 
 import hexlet.code.Pair;
-
+import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class Plain {
-    public static String toString(Map<String, Pair> map) {
+    public static String toString(Map<String, Pair> map) throws Exception {
         Set<String> keys = new TreeSet<>(map.keySet());
 
         StringBuilder result = new StringBuilder();
@@ -41,7 +42,7 @@ public class Plain {
                     result.append("\n");
                 }
                 case ("unchanged") -> { }
-                default -> throw new RuntimeException("Error! Status \"" + status + "\" not detected.");
+                default -> throw new Exception("Error! Status \"" + status + "\" not detected.");
             }
         }
 
@@ -49,26 +50,19 @@ public class Plain {
     }
 
     public static String getValuePlainFormat(Object value) {
+
         if (value == null) {
             return null;
         }
 
-        if ("class java.util.ArrayList".equals((value.getClass().toString()))) {
+        if (value instanceof ArrayList<?> || value instanceof LinkedHashMap<?, ?>) {
             return "[complex value]";
         }
 
-        if ("class java.util.LinkedHashMap".equals((value.getClass().toString()))) {
-            return "[complex value]";
+        if (value instanceof String) {
+            return "'" + value + "'";
         }
 
-        if ("class java.lang.Boolean".equals((value.getClass().toString()))) {
-            return String.valueOf(value);
-        }
-
-        if ("class java.lang.Integer".equals((value.getClass().toString()))) {
-            return String.valueOf(value);
-        }
-
-        return "'" + value + "'";
+        return String.valueOf(value);
     }
 }

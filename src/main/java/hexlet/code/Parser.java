@@ -6,7 +6,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.util.Map;
 
 public class Parser {
-    static Map<String, Object> getContents(byte[] data, String extension) throws Exception {
+    static Map<String, Object> getContents(String data, String extension) throws Exception {
         Map<String, Object> map;
         ObjectMapper mapper;
 
@@ -21,7 +21,7 @@ public class Parser {
                 map = mapper.readValue(data, new TypeReference<>() {
                 });
             }
-            default -> throw new RuntimeException("\"" + extension + "\" invalid file extension");
+            default -> throw new Exception("Unknown format: \"" + extension + "\"");
         }
 
         return map;
