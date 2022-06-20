@@ -16,8 +16,8 @@ public class Plain {
         for (String key : keys) {
             String status = map.get(key).getStatus();
             String keyFormat = "'" + key + "'";
-            String value = map.get(key).toStringValuePlainFormat();
-            String oldValue = map.get(key).toStringOldValuePlainFormat();
+            String value = Plain.getValuePlainFormat(map.get(key).getValue());
+            String oldValue = getValuePlainFormat(map.get(key).getOldValue());
             switch (status) {
                 case ("deleted") -> {
                     result.append("Property ");

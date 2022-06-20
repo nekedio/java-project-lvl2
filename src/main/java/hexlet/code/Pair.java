@@ -1,7 +1,5 @@
 package hexlet.code;
 
-import hexlet.code.formatters.Plain;
-
 public final class Pair {
     private final Object value;
     private final Object oldValue;
@@ -21,16 +19,15 @@ public final class Pair {
         return String.valueOf(value);
     }
 
-    public String toStringValuePlainFormat() {
-        return Plain.getValuePlainFormat(value);
+    public Object getValue() {
+        return value;
+    }
+
+    public Object getOldValue() {
+        return oldValue;
     }
 
     public String toStringOldValue() {
         return String.valueOf(oldValue);
     }
-
-    public String toStringOldValuePlainFormat() {
-        return Plain.getValuePlainFormat(oldValue);
-    }
-
 }
