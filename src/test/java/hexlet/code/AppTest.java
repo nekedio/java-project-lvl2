@@ -11,8 +11,23 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 
-public class AppTest {
-    private ByteArrayOutputStream output = new ByteArrayOutputStream();
+public final class AppTest {
+    private final ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+    private final String expectedStylishFormat;
+    private final String expectedJsonFormat;
+    private final String expectedPlainFormat;
+
+    public AppTest() throws IOException {
+        this.expectedStylishFormat =
+                Files.readString(new File("src/test/resources/result.stylish").toPath()) + "\n";
+
+        this.expectedJsonFormat =
+                Files.readString(new File("src/test/resources/result.json").toPath()) + "\n";
+
+        this.expectedPlainFormat =
+                Files.readString(new File("src/test/resources/result.plain").toPath()) + "\n";
+    }
 
     @Before
     public void setUpStreams() {
@@ -38,33 +53,39 @@ public class AppTest {
     }
 
     @Test
-    public void testGenDiffStylishFormat() throws IOException {
+    public void testGenDiffStylishFormat() {
         String[] args = {"-f=stylish", "src/test/resources/file1.json", "src/test/resources/file2.json"};
         int exitCode = new CommandLine(new App()).execute(args);
-        String expected = Files.readString(new File("src/test/resources/result.stylish").toPath()) + "\n";
 
         assertThat(exitCode).isEqualTo(0);
-        assertThat(output.toString()).isEqualTo(expected);
+        assertThat(output.toString()).isEqualTo(expectedStylishFormat);
     }
 
     @Test
-    public void testGenDiffPlainFormat() throws IOException {
+    public void testGenDiffPlainFormat() {
         String[] args = {"-f=plain", "src/test/resources/file1.json", "src/test/resources/file2.json"};
         int exitCode = new CommandLine(new App()).execute(args);
-        String expected = Files.readString(new File("src/test/resources/result.plain").toPath()) + "\n";
 
         assertThat(exitCode).isEqualTo(0);
-        assertThat(output.toString()).isEqualTo(expected);
+        assertThat(output.toString()).isEqualTo(expectedPlainFormat);
     }
 
     @Test
-    public void testGenDiffDefaultFormat() throws IOException {
-        String[] args = {"src/test/resources/file1.json", "src/test/resources/file2.json"};
+    public void testGenDiffJsonFormat() {
+        String[] args = {"-f=json", "src/test/resources/file1.json", "src/test/resources/file2.json"};
         int exitCode = new CommandLine(new App()).execute(args);
-        String expected = Files.readString(new File("src/test/resources/result.stylish").toPath()) + "\n";
 
         assertThat(exitCode).isEqualTo(0);
-        assertThat(output.toString()).isEqualTo(expected);
+        assertThat(output.toString()).isEqualTo(expectedJsonFormat);
+    }
+
+    @Test
+    public void testGenDiffDefaultFormat() {
+        String[] args = {"src/test/resources/file1.json", "src/test/resources/file2.json"};
+        int exitCode = new CommandLine(new App()).execute(args);
+
+        assertThat(exitCode).isEqualTo(0);
+        assertThat(output.toString()).isEqualTo(expectedStylishFormat);
     }
 
     @After

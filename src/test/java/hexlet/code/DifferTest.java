@@ -1,83 +1,74 @@
 package hexlet.code;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 
-public class DifferTest {
-    @Test
-    void testDiffGenerateParsingYaml() throws Exception {
+public final class DifferTest {
 
-        String expected = Files.readString(new File("src/test/resources/result.stylish").toPath());
+    private final String expectedStylishFormat;
+    private final String expectedJsonFormat;
+    private final String expectedPlainFormat;
 
-        String actual = Differ.generate(
-                "src/test/resources/file1.yml",
-                "src/test/resources/file2.yml"
-        );
+    public DifferTest() throws IOException {
+        this.expectedStylishFormat = Files.readString(new File("src/test/resources/result.stylish").toPath());
+        this.expectedJsonFormat = Files.readString(new File("src/test/resources/result.json").toPath());
+        this.expectedPlainFormat = Files.readString(new File("src/test/resources/result.plain").toPath());
+    }
 
-        assertThat(actual).isEqualTo(expected);
+    @ParameterizedTest
+    @ValueSource(strings = {"json", "yml"})
+    public void testDiffGenerateDefaultFormat(String format) throws Exception {
+        String filePath1 = "src/test/resources/file1." + format;
+        String filePath2 = "src/test/resources/file2." + format;
+        String actual = Differ.generate(filePath1, filePath2);
+
+        assertThat(actual).isEqualTo(expectedStylishFormat);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"json", "yml"})
+    public void testDiffGenerateStylishFormat(String format) throws Exception {
+        String filePath1 = "src/test/resources/file1." + format;
+        String filePath2 = "src/test/resources/file2." + format;
+        String actual = Differ.generate(filePath1, filePath2, "stylish");
+
+        assertThat(actual).isEqualTo(expectedStylishFormat);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"json", "yml"})
+    public void testDiffGenerateJsonFormat(String format) throws Exception {
+        String filePath1 = "src/test/resources/file1." + format;
+        String filePath2 = "src/test/resources/file2." + format;
+        String actual = Differ.generate(filePath1, filePath2, "json");
+
+        assertThat(actual).isEqualTo(expectedJsonFormat);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"json", "yml"})
+    public void testDiffGeneratePlainFormat(String format) throws Exception {
+        String filePath1 = "src/test/resources/file1." + format;
+        String filePath2 = "src/test/resources/file2." + format;
+        String actual = Differ.generate(filePath1, filePath2, "plain");
+
+        assertThat(actual).isEqualTo(expectedPlainFormat);
     }
 
     @Test
-    void testDiffGenerateParsingJson() throws Exception {
-        String expected = Files.readString(new File("src/test/resources/result.stylish").toPath());
-
-        String actual = Differ.generate(
-                "src/test/resources/file1.json",
-                "src/test/resources/file2.json"
-        );
-
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    @Test
-    void testDiffGenerateToPlainFormat() throws Exception {
-        String expected = Files.readString(new File("src/test/resources/result.plain").toPath());
-
-        String actual = Differ.generate(
-                "src/test/resources/file1.json",
-                "src/test/resources/file2.json",
-                "plain"
-        );
-
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    @Test
-    void testDiffGenerateToStylishFormat() throws Exception {
-        String expected = Files.readString(new File("src/test/resources/result.stylish").toPath());
-
-        String actual = Differ.generate(
-                "src/test/resources/file1.json",
-                "src/test/resources/file2.json",
-                "stylish"
-        );
-
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    @Test
-    void testDiffGenerateToJsonFormat() throws Exception {
-        String expected = Files.readString(new File("src/test/resources/result.json").toPath());
-
-        String actual = Differ.generate(
-                "src/test/resources/file1.json",
-                "src/test/resources/file2.json",
-                "json"
-        );
-
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    @Test
-    void testDiffGenerateFormatException() {
+    public void testDiffGenerateFormatException() {
         Exception exception;
         exception = assertThrows(Exception.class, () -> Differ.generate(
-            "src/test/resources/file1.yml",
-                "src/test/resources/file2.yml",
+                "src/test/resources/file1.json",
+                "src/test/resources/file2.json",
                 "er"
         ));
 
@@ -88,10 +79,10 @@ public class DifferTest {
     }
 
     @Test
-    void testDiffGenerateParsingException() {
+    public void testDiffGenerateParsingException() {
         Exception exception;
         exception = assertThrows(Exception.class, () -> Differ.generate(
-                "src/test/resources/file1.yml",
+                "src/test/resources/file1.json",
                 "src/test/resources/errorExtension.jso",
                 "stylish"
         ));
