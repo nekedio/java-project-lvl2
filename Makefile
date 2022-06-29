@@ -1,3 +1,5 @@
+path = $(shell pwd)
+
 run: install-dist comparison-example
 
 run-dist:
@@ -18,12 +20,12 @@ comparison-example:
 	@echo "--------------------------------------------------------------"
 	./build/install/app/bin/app src/test/resources/fileRec1.json src/test/resources/fileRec2.json
 
-report:
+report: test
 	./gradlew jacocoTestReport
 	@echo "\n\nOpen the following file in any browser:"
-	@echo "\033[34mfile:///home/nekedio/he/app/build/jacocoHtml/index.html\033[0m"
+	@echo "\033[34mfile://${path}/build/jacocoHtml/index.html\033[0m"
 	@echo "---------------------------------------------------------------------------------------------------"
-	@w3m -dump file:///home/nekedio/he/app/build/jacocoHtml/index.html
+	@w3m -dump file://${path}/build/jacocoHtml/index.html
 	@echo "---------------------------------------------------------------------------------------------------"
 
 build:
