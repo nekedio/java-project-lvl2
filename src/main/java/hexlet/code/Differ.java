@@ -7,8 +7,8 @@ import java.util.Map;
 public class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
 
-        String extension1 = generateExtension(filepath1);
-        String extension2 = generateExtension(filepath2);
+        String extension1 = getExtension(filepath1);
+        String extension2 = getExtension(filepath2);
 
         String content1 = Files.readString((new File(filepath1)).toPath());
         String content2 = Files.readString((new File(filepath2)).toPath());
@@ -16,12 +16,12 @@ public class Differ {
         Map<String, Object> data1 = Parser.getContents(content1, extension1);
         Map<String, Object> data2 = Parser.getContents(content2, extension2);
 
-        Map<String, Pair> map = Comparison.genDiff(data1, data2);
+        Map<String, Pair> diff = Comparison.genDiff(data1, data2);
 
-        return Formatter.getString(map, format);
+        return Formatter.getString(diff, format);
     }
 
-    private static String generateExtension(String filepath) throws Exception {
+    private static String getExtension(String filepath) throws Exception {
         if (filepath.indexOf('.') < 0) {
             throw new Exception("Unknown format file \"" + filepath + "\"");
         }
